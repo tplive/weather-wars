@@ -1,0 +1,24 @@
+{
+  "name": "weather-wars",
+  "version": "1.0.0",
+  "description": "Backend for Weather Wars",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tplive/weather-wars.git"
+  },
+  "author": "Thomas Qvidahl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tplive/weather-wars/issues"
+  },
+  "homepage": "https://github.com/tplive/weather-wars#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "@google-cloud/datastore": "^3.1.2"
+  }
+}
