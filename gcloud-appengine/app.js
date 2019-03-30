@@ -1,26 +1,14 @@
 const express = require('express');
+const weatherApi = require('./weatherapi');
 
 const app = express();
 
-function getTemperature(searchTerm) {
-    // TODO Implement actual function
-    // Will look up temperature at "searchTerm" and return the
-    // forecast temperature for that particular site
-    return Math.random() * 60 * (Math.random() < 0.5 ? -1 : 1);
-}
 
-function diffTwoTemperatures(a, b) {
-    if (a >= b ) {
-        return a-b;
-    }else {
-        return b-a;
-    }
-}
 
 app.get('/', function (req, res) {
-    const a = getTemperature("Sometown");
-    const b = getTemperature("Otherplace");
-    const diff = diffTwoTemperatures(a, b);
+    const a = weatherApi.getTemperature("Sometown");
+    const b = weatherApi.getTemperature("Otherplace");
+    const diff = weatherApi.diffTwoTemperatures(a, b);
 
     res.send("Temperature at site A was " + a + "\nTemperature at site B was " + b + "\nDifference is " + diff);
 });
