@@ -1,57 +1,30 @@
 const express = require('express');
-const crypto = require('crypto');
 
 const app = express();
 
-const PROJECT = process.env.GOOGLE_CLOUD_PROJECT || "weather-wars";
-
-const {Datastore} = require('@google-cloud/datastore');
-const datastore = new Datastore();
-
-function insertVisit(visit) {
-    return datastore.save({
-        key: datastore.key('visit'),
-        data: visit,
-    });
+function getTemperature(searchTerm) {
+    // TODO Implement actual function
+    // Will look up temperature at "searchTerm" and return the
+    // forecast temperature for that particular site
+    return Math.random() * 60 * (Math.random() < 0.5 ? -1 : 1);
 }
 
-function getVisits() {
-    const query = datastore
-        .createQuery('visit')
-        .order('timestamp', {descending: true})
-        .limit(10);
-    return datastore.runQuery(query);
-}
-
-app.get('/', async (req, res, next) => {
-    // Create a visit record to be stored in the database
-    const visit = {
-        timestamp: new Date(),
-        // Store a hash of the visitor's IP address
-        userIp: crypto
-            .createHash('sha256')
-            .update(req.ip)
-            .digest('hex')
-            .substr(0,7),
-    };
-
-    try {
-        await insertVisit(visit);
-        const results = await getVisits();
-        const entities = results[0];
-        const visits = entities.map(
-            entity => `Time: ${entity.timestamp}, AddrHash: ${entity.userIp}`
-        );
-        res
-            .status(200)
-            .set('Content-Type', 'text/plain')
-            .send(`Last 10 visits:\n${visits.join('\n')}`)
-            .end();
-    } catch (error) {
-        next(error);
+function diffTwoTemperatures(a, b) {
+    if (a >= b ) {
+        return a-b;
+    }else {
+        return b-a;
     }
-    
+}
+
+app.get('/', function (req, res) {
+    const a = getTemperature("Sometown");
+    const b = getTemperature("Otherplace");
+    const diff = diffTwoTemperatures(a, b);
+
+    res.send("Temperature at site A was " + a + "\nTemperature at site B was " + b + "\nDifference is " + diff);
 });
+
 
 app.put('/', function (req, res) {
     console.log("HTTP Put Request");
