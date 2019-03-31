@@ -1,12 +1,13 @@
 const express = require('express');
 const weatherApi = require('./weatherapi');
+
+// Dotenv parses the contents of the .env file from the working folder.
+// Make your own .env file as it shouldn't be commited to git.
+
 require('dotenv').config();
 
 const app = express();
 
-// Set this as environment variable before running the application
-// set GOOGLE_API_KEY=<your api key here>
-// Get one here: https://developers.google.com/maps/documentation/embed/get-api-key
 const API_KEY = process.env.GOOGLE_API_KEY;
 
 const googleMapsClient = require('@google/maps').createClient({
@@ -33,7 +34,7 @@ app.get('/', function (req, res) {
     const location = geocodeThis("Mathias Lunds gate, Stjørdal");
 
     sendThis = "Temperature at site A was " + a + "\nTemperature at site B was " + b + "\nDifference is " + diff;
-    sendThis += "\nAnd the location is: " + location.results.lat;
+    sendThis += "\nAnd the location is: " + location;
     res.send(sendThis);
 });
 
