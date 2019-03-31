@@ -19,6 +19,7 @@ function geocodeThis(address) {
     address: address
   }, function(err, response) {
     if (!err) {
+      console.log(response.json.results[0].geometry.location);
       return response.json.results[0].geometry.location;
     }else {
       return err;
@@ -32,7 +33,7 @@ app.get('/', function (req, res) {
     const b = weatherApi.getTemperature("Otherplace");
     const diff = weatherApi.diffTwoTemperatures(a, b);
     const location = geocodeThis("Mathias Lunds gate, Stjørdal");
-
+    // Why isn't the lat, lng coordinates begin returned from geocodeThis??
     sendThis = "Temperature at site A was " + a + "\nTemperature at site B was " + b + "\nDifference is " + diff;
     sendThis += "\nAnd the location is: " + location;
     res.send(sendThis);
