@@ -3,14 +3,38 @@ const weatherApi = require('./weatherapi');
 
 const app = express();
 
+// Set this as environment variable before running the application
+// set GOOGLE_API_KEY=<your api key here>
+
+const API_KEY = process.env.GOOGLE_API_KEY;
+console.log(API_KEY);
+
+const googleMapsClient = require('@google/maps').createClient({
+  key: API_KEY
+})
+
+function geocodeThis(address) {
+  googleMapsClient.geocode({
+    address: address
+  }, function(err, response) {
+    if (!err) {
+      return response.json.results[0].geometry.location;
+    }else {
+      return err;
+    }
+  })
+}
 
 
 app.get('/', function (req, res) {
     const a = weatherApi.getTemperature("Sometown");
     const b = weatherApi.getTemperature("Otherplace");
     const diff = weatherApi.diffTwoTemperatures(a, b);
+    const location = geocodeThis("Mathias Lunds gate, Stjørdal");
 
-    res.send("Temperature at site A was " + a + "\nTemperature at site B was " + b + "\nDifference is " + diff);
+    sendThis = "Temperature at site A was " + a + "\nTemperature at site B was " + b + "\nDifference is " + diff;
+    sendThis += "\nAnd the location is: " + location.results.lat;
+    res.send(sendThis);
 });
 
 
