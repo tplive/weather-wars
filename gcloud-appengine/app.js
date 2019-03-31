@@ -1,13 +1,13 @@
 const express = require('express');
 const weatherApi = require('./weatherapi');
+require('dotenv').config();
 
 const app = express();
 
 // Set this as environment variable before running the application
 // set GOOGLE_API_KEY=<your api key here>
-
+// Get one here: https://developers.google.com/maps/documentation/embed/get-api-key
 const API_KEY = process.env.GOOGLE_API_KEY;
-console.log(API_KEY);
 
 const googleMapsClient = require('@google/maps').createClient({
   key: API_KEY
