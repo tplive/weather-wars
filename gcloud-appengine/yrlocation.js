@@ -13,7 +13,7 @@ module.exports = {
             // The whole response has been received. Print out the result.
             resp.on('end', () => {
 
-                console.log(xmlToJSON.xml2json(data, {compact: true, spaces: 4}));
+                return xmlToJSON.xml2json(data, {compact: true, spaces: 4});
             });
         }).on("error", (err) => {
             console.log("Error: " + err.message);
