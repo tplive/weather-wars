@@ -11,23 +11,25 @@ const request = require('request');
  * @param {*} lon = longitude
  */
 
-async function asJSON(lat, lon)    {
-    // Supply lat and lon to get weather in JSON format for that location from the YR-API.
-    const url = 'https://api.met.no/weatherapi/locationforecast/1.9/?lat=' + lat + '&lon=' + lon;
+module.exports = {
+    asJSON: async function(lat, lon)    {
+        // Supply lat and lon to get weather in JSON format for that location from the YR-API.
+        const url = 'https://api.met.no/weatherapi/locationforecast/1.9/?lat=' + lat + '&lon=' + lon;
 
-    function getXML(url)    {
-        return new Promise(function(resolve, reject){
-            request.get(url, (err, res, body) => {
-                if(!err)    {
-                    resolve(body);
-                } else {
-                    reject(console.log(err));
-                }
+        function getXML(url)    {
+            return new Promise(function(resolve, reject){
+                request.get(url, (err, res, body) => {
+                    if(!err)    {
+                        resolve(body);
+                    } else {
+                        reject(console.log(err));
+                    }
+                });
             });
-        });
-    };
+        };
 
-    return await getXML(url).then(xml => convert.xml2json(xml, {compact: true, spaces: 4}));
+        return await getXML(url).then(xml => convert.xml2json(xml, {compact: true, spaces: 4}));
+    }
 }
 
 
