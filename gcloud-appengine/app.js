@@ -1,16 +1,45 @@
 const express = require('express');
 const weatherApi = require('./weatherapi');
+const request = require('request-promise');
+
+// Dotenv parses the contents of the .env file from the working folder into environment variables.
+// Make your own .env file as it shouldn't be commited to git.
+require('dotenv').config();
 
 const app = express();
 
+// This is set in the .env file
+const API_KEY = process.env.GOOGLE_API_KEY;
+
+async function geocodeThis(address) {
+
+  var url = "https://maps.googleapis.com/maps/api/geocode/json";
+  var options = {
+    uri: url,
+    method: "GET",
+    qs: {
+      address: address,
+      key: API_KEY
+    },
+    json: true
+  };
+  
+  var result = await request(options);
+  return result.results[0].geometry.location;
+    
+}
 
 
-app.get('/', function (req, res) {
-    const a = weatherApi.getTemperature("Sometown");
-    const b = weatherApi.getTemperature("Otherplace");
-    const diff = weatherApi.diffTwoTemperatures(a, b);
-
-    res.send("Temperature at site A was " + a + "\nTemperature at site B was " + b + "\nDifference is " + diff);
+app.get('/getGeoLocation', function (req, res) {
+  geocodeThis(req.query.address)
+    .then( loc => {
+      res.send(loc);
+    })
+    .catch( (error) => {
+      console.log(error);
+      res.send("Error: " + error);
+    });
+  
 });
 
 
