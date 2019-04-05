@@ -37,11 +37,21 @@ app.get('/getGeoLocation', function (req, res) {
     })
     .catch( (error) => {
       console.log(error);
-      res.send("Error: " + error);
+      res.send(error);
     });
   
 });
 
+app.get('/getTemperatureAt', function (request, response) {
+  weatherApi.getTemperature(request.query.address)
+    .then( temp => {
+      response.send(temp);
+    })
+    .catch( error => {
+      console.log(error);
+      response.send(error);
+    });
+});
 
 app.put('/', function (req, res) {
     console.log("HTTP Put Request");
