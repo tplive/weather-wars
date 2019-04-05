@@ -9,11 +9,6 @@ require('dotenv').config();
 
 const app = express();
 
-
-
-
-
-
 app.get('/getGeoLocation', function (req, res) {
   geocode.geocode(req.query.address)
     .then( loc => {
@@ -27,12 +22,13 @@ app.get('/getGeoLocation', function (req, res) {
 });
 
 app.get('/getTemperatureAt', function (request, response) {
-  weatherApi.getTemperature(request.query.lat, request.query.lng)
+  
+  weatherApi.getTemperature(request.query.lat, request.query.lon)
     .then( temp => {
-      console.log();
-      response.send(temp);
+      console.log("Temp now is: " + temp + "°C");
+      response.send({ "temp": temp});
     })
-    .catch( error => {
+    .catch( (error) => {
       console.log(error);
       response.send(error);
     });
