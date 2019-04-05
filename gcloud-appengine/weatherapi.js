@@ -32,11 +32,6 @@ module.exports =  {
         return JSON.parse(temp).weatherdata.product.time[0].location.temperature._attributes.value;    
     },
 
-    diffTwoTemperatures: function(a, b) {
-        // Compare two double numbers, and return the difference
-        return Math.abs(a-b);
-    },
-
     // Rain(precipitation)
     getRain: async function(lat, lon) {
         // Returns the rainfall(precipitation) NOW in mm(as a Promise)
