@@ -23,7 +23,7 @@ app.get('/getGeoLocation', function (req, res) {
 
 app.get('/getTemperatureAt', function (request, response) {
   
-  weatherApi.getTemperature(request.query.lat, request.query.lon)
+  weatherApi.getTemperature(request.query.lat, request.query.lng)
     .then( temp => {
       console.log("Temp now is: " + temp + "°C");
       response.send({ "temp": temp});

@@ -3,19 +3,19 @@ const request = require('request');
 
 /**
  * 
- * getWeatherAsJSON takes lat and lon, returns a Promise with weather in JSON form.
+ * getWeatherAsJSON takes lat and lng, returns a Promise with weather in JSON form.
  * 
  * Example usage: getWeatherAsJSON(60.1, 9.58).then(console.log); Prints the JSON to console.
  * 
  * @param {*} lat = latitude
- * @param {*} lon = longitude
+ * @param {*} lng = longitude
  */
 
 module.exports = {
-    asJSON: async function(lat, lon)    {
-        // Supply lat and lon to get weather in JSON format for that location from the YR-API.
-        // curl "https://api.met.no/weatherapi/locationforecast/1.9/?lat=63.42&lon=10.43"
-        const url = 'https://api.met.no/weatherapi/locationforecast/1.9/?lat=' + lat + '&lon=' + lon;
+    asJSON: async function(lat, lng)    {
+        // Supply lat and lng to get weather in JSON format for that location from the YR-API.
+        // curl "https://api.met.no/weatherapi/locationforecast/1.9/?lat=63.42&lng=10.43"
+        const url = 'https://api.met.no/weatherapi/locationforecast/1.9/?lat=' + lat + '&lng=' + lng;
 
         function getXML(url)    {
             return new Promise(function(resolve, reject){

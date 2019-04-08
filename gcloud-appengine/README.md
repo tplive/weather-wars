@@ -20,9 +20,9 @@ Ser at man ikke kan søke direkte etter vær for en geografisk lokasjon hos Yr. 
 Lister her en high-level overview over hvilke funksjoner API'et støtter. Full-detaljert dokumentasjon i Swagger.
 
 ### getPlace(searchString)
-Returnerer en liste med søkeresultater som matcher søkestreng. Navn og koordinater (lat, lon).
+Returnerer en liste med søkeresultater som matcher søkestreng. Navn og koordinater (lat, lng).
 
-### getTemperature(lat, lon)
+### getTemperature(lat, lng)
 Denne funksjonen søker opp gjeldende temperatur for et gitt koordinat.
 
 ### diffTemperature(a, b)

@@ -4,7 +4,7 @@ require('dotenv').config();
 const API_KEY = process.env.GOOGLE_API_KEY;
 /**
  * 
- * geocodeapi takes an address and returns a Promise with lat and lon coordinates.
+ * geocodeapi takes an address and returns a Promise with lat and lng coordinates.
  * 
  * Example usage: geocode("Drammensveien 1, Oslo").then(console.log); Prints the JSON to console.
  * 
