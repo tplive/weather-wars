@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <div>
+      <form id="formSearchPlaces" name="searchplaces" method="GET" onsubmit="return false">
+        <input id="inputA" type="text" placeholder="Enter name of place" name="placeA" />
+        <input id="inputB" type="text" placeholder="Enter name of place" name="placeB" />
+        <button id="btnSubmit" onclick="submitSearch()" type="button">Søk!</button>
+      </form>
+    </div>
+    <h1 id="result">Temperaturforskjellen mellom A og B er X°C!</h1>
+
+    <script>
+        function submitSearch() {
+          var a = document.getElementById("inputA").value;
+          var b = document.getElementById("inputB").value;
+          console.log(a, b);
+          
+          if (a && b) {
+            var tempA = parseFloat(Math.random(100));//getTemperature(getCoordinates(a));
+            var tempB = parseFloat(Math.random(100));//getTemperature(getCoordinates(b));
+          };
+    
+          document.getElementById('result').innerHTML = "Forskjellen mellom " + a + " og " + b + " er " + Math.abs(tempA + tempB) + "°C!";
+    
+          
+        }
+    
+        function getCoordinates(place) {
+          // TODO async get coordinates from backend
+        }
+    
+        function getTemperature(coordinates) {
+          // TODO async get temperature from backend 
+        }
+      </script>
+  </body>
+  
+</html>
